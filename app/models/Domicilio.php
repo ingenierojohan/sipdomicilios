@@ -15,5 +15,17 @@
 			//return $cliente;
 		//}
 
+	// Modelo Inverso para saber a que OPERADOR corresponde el servicio.
+		public function user()
+		{
+			return $this->belongsTo('User');
+		}
+
+	// Modelo Inverso para saber a que OPERADOR corresponde el servicio.
+		public function cliente()
+		{
+			return $this->belongsTo('Cliente');
+		}
+
 	}
 ?>

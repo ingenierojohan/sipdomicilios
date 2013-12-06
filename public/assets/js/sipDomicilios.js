@@ -126,6 +126,8 @@ function printTabClient(info){
 			scriptTemplate +=	'<script type="text/javascript">';
 			scriptTemplate +=		'$(".infoClient").tooltip();';	// toolTIP
 			scriptTemplate +=		'$("#descricionDomicilio-'+idTab+'").autogrow();';	// TEXTAREA
+			scriptTemplate +=		'$("#descricionDomicilio-'+idTab+'").autogrow();';	// TEXTAREA
+
 
 			scriptTemplate +=		'$("#domicilioBton-'+idTab+'").on("click", function(evt){';	// BOTON save and show Domicilios
 			scriptTemplate +=			'evt.preventDefault();';
@@ -170,11 +172,16 @@ function printTabClient(info){
 function showFormDelivery(jsonData){
 	var responseServer = jsonData;
 	console.log("----- Response before Click Domicilio ------",responseServer);
+	if(responseServer.error){
+		msgError(responseServer.msg);
+		$("#domicilioBton-"+responseServer.idTab).prop("disabled", false);
+		return;
+	}
+	msgSuccess(responseServer.msg);
 	var contentFormDelivery =	'<p class="text-right">'+responseServer.horaDomicilio.date+'</p>';
 	$("#horaDomicilio-"+responseServer.idTab).html( contentFormDelivery );
 	$("#contentDomicilio-"+responseServer.idTab).show();
 }
-
 
 //------------------------ Acciones ---------------------
 function removeTab(idTab){
@@ -189,8 +196,8 @@ function saveClient(dataForm, callback){
 		url: "saveDataClient",
 		format: "json",
 		data: dataForm,
-		//beforeSend: function(){
-		//	$("#status").html('<span class="label label-info">Validando información ... </span>'); },
+		beforeSend: function(){
+			$("#status").html('<span class="label label-info"><h4>Validando información ... </h4></span>'); },
 	})
 	.done(callback);
 }
@@ -202,8 +209,8 @@ function saveDelivery(dataDelivery, callback){
 		url: "saveDataDelivery",
 		format: "json",
 		data: dataDelivery,
-		//beforeSend: function(){
-		//	$("#status").html('<span class="label label-info">Validando información ... </span>'); },
+		beforeSend: function(){
+			$("#status").html('<span class="label label-info"><h4>Validando información ... </h4></span>'); },
 	})
 	.done(callback);
 }
@@ -211,9 +218,20 @@ function saveDelivery(dataDelivery, callback){
 function closeTab(jsonData){
 	var responseServer = jsonData;
 	console.log("----- Response before Click Asignar Domicilio ------",responseServer);
+	if(responseServer.error){
+		msgError(responseServer.msg);
+		return;
+	}
+	msgSuccess(responseServer.msg);
 	removeTab(responseServer.idTab);
 }
 
-function mensajes(msg){
+function msgError(msg){
 	console.log(msg);
+	$("#status").html('<span class="label label-important"><h4>'+msg+'</h4></span>');
+}
+
+function msgSuccess(msg){
+	console.log(msg);
+	$("#status").html('<span class="label label-success status"><h4>'+msg+'</h4></span>');
 }

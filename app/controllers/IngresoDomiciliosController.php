@@ -37,10 +37,12 @@ class IngresoDomiciliosController extends BaseController {
 //**************************************** Funciones Privadas ***************
   // Funcion cuando una llamada es Colgada
   private function hangupCalls($incomingCallHangup){
-    Sipdomicilioscid::where('unique_id', '=', $incomingCallHangup->unique_id)->update(array('estado_id' => 203)); // Actualizamos Registro
+    $sipdomicilio = Sipdomicilioscid::where('unique_id', '=', $incomingCallHangup->unique_id)->first();
+    Sipdomicilioscid::find($sipdomicilio->id)->update(array('estado_id' => 203)); // Actualizamos Registro
+
     Asteriskcid::destroy($incomingCallHangup->id);  // Borramos Registro
     return array('hangup'=>true,
-     'idTab'=> $incomingCallHangup->unique_id,
+     'idTab'=> $sipdomicilio->id,
      'msg' => 'LLAMADA COLGADA');
   } // Fin del Metodo
 

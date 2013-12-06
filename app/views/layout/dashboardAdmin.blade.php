@@ -20,6 +20,7 @@
   {{ HTML::style('/assets/css/social.css') }}
   {{ HTML::style('/assets/css/font-awesome.css') }}
   {{ HTML::style('/assets/css/social-theme-blue.css') }}
+  {{ HTML::style('/assets/css/sipdomicilio.css') }}
 
   <style>
   .wraper #main{
@@ -51,12 +52,16 @@
   {{ HTML::script('/assets/js/hora.js') }}
   {{ HTML::script('/assets/js/sipDomicilios.js') }}
   {{ HTML::script('/assets/js/jquery-ui-1.10.1.custom.js') }}
+  {{ HTML::script('/assets/js/jquery.dataTables.js') }} <!-- Text Area -->
+  {{ HTML::script('/assets/js/DT_bootstrap.js') }} <!-- Text Area -->
 
   <!-- Plugins -->
   {{ HTML::script('/assets/js/plugins/jquery.pulsate.min.js') }} <!-- Indicador de LLamana Nueva -->
   {{ HTML::script('/assets/js/plugins/bootstrap-tabs-dynamic.js') }}  <!-- TABS -->
   {{ HTML::script('/assets/js/plugins/bootstrap-tooltip.js') }} <!-- Mensajes toolTips -->
   {{ HTML::script('/assets/js/plugins/jquery.autogrow-textarea.js') }} <!-- Text Area -->
+
+
   <!-- SCRIPTS -->
 
   <script>
